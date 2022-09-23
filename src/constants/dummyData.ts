@@ -62,7 +62,7 @@ const trendingRecipes = [
                 quantity: "¼ tbsp"
             },
             {
-                id: 6,
+                id: 8,
                 icon: icons.pepper,
                 description: "Black Pepper",
                 quantity: "¼ tbsp"
