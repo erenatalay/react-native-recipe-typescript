@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -7,7 +7,8 @@ import {
     StyleSheet,
     Image,
     FlatList,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Animated as Animateds
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated from "react-native-reanimated";
@@ -21,6 +22,7 @@ import Settings from './Settings';
 import Bookmark from './Bookmark';
 
 
+const HEADER_HEIGHT = 100;
 
 const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle }: any) => {
     return (
@@ -73,13 +75,13 @@ const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, inner
                     {
                         isFocused && <View style={{
                             position: "absolute",
-                            left :0,
-                            right : 0,
-                            bottom : 0,
-                            height : 3,
-                            borderTopLeftRadius : 5,
-                            borderTopRightRadius : 5,
-                            backgroundColor : COLORS.primary
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            height: 3,
+                            borderTopLeftRadius: 5,
+                            borderTopRightRadius: 5,
+                            backgroundColor: COLORS.primary
 
 
                         }}>
@@ -146,6 +148,27 @@ const MainLayout = ({ drawerAnimationStyle, navigation }: any) => {
             </View>
         )
     }
+
+
+    const [scrollAnim] = useState(new Animateds.Value(0));
+    const [offsetAnim] = useState(new Animateds.Value(0));
+    const [clampedScroll, setClampedScroll] = useState(Animateds.diffClamp(
+        Animateds.add(
+            scrollAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 1],
+                extrapolateLeft: 'clamp'
+            }),
+            offsetAnim
+        ), 0, 1
+    ));
+
+    const navbarTranslate = clampedScroll.interpolate({
+        inputRange: [0, HEADER_HEIGHT],
+        outputRange: [0, HEADER_HEIGHT],
+        extrapolate: 'clamp'
+    });
+
     return (
         <Animated.View
             style={{
@@ -178,10 +201,10 @@ const MainLayout = ({ drawerAnimationStyle, navigation }: any) => {
                                     width: SIZES.width
                                 }}
                             >
-                                {item.label == constants.screens.home && <Home navigation={navigation} />}
+                                {item.label == constants.screens.home && <Home navigation={navigation} scrollAnim={scrollAnim} />}
                                 {item.label == constants.screens.search && <Search />}
-                                {item.label == constants.screens.bookmark && <Bookmark navigation={navigation}/>}
-                                {item.label == constants.screens.settings && <Settings navigation={navigation}/>}
+                                {item.label == constants.screens.bookmark && <Bookmark navigation={navigation} />}
+                                {item.label == constants.screens.settings && <Settings navigation={navigation} />}
 
 
                             </View>
@@ -215,14 +238,31 @@ const MainLayout = ({ drawerAnimationStyle, navigation }: any) => {
                 />
 
                 {/* Tabs */}
-                <View style={{
+                <Animateds.View style={{
                     flexDirection: "row",
                     paddingHorizontal: SIZES.radius,
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
-                    backgroundColor: COLORS.white
+                    backgroundColor: COLORS.white,
+                    transform: [{ translateY: navbarTranslate }],
+                    position : "absolute"
 
-                }}>
+                }}
+
+                    onLayout={(event) => {
+                        let { height } = event.nativeEvent.layout;
+                        setClampedScroll(Animateds.diffClamp(
+                            Animateds.add(
+                                scrollAnim.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [0, 1],
+                                    extrapolateLeft: 'clamp'
+                                }),
+                                offsetAnim
+                            ), 0, height)
+                        );
+                    }}
+                >
                     <TabButton
                         label={constants.screens.home}
                         icon={icons.home}
@@ -255,7 +295,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation }: any) => {
 
                     />
 
-                </View>
+                </Animateds.View>
 
             </View>
         </Animated.View>

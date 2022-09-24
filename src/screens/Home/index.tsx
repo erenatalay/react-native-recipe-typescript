@@ -6,8 +6,7 @@ import CategoryCard from '../../components/CategoryCard'
 import TrendingCard from '../../components/TrendingCard'
 import { icons, images, SIZES, COLORS, FONTS, constants, dummyData } from '../../constants'
 const HEADER_HEIGHT = 100;
-const Home = ({ navigation }: any) => {
-  const [scrollAnim] = useState(new Animated.Value(0));
+const Home = ({ navigation,scrollAnim }: any) => {
   const [offsetAnim] = useState(new Animated.Value(0));
   const [clampedScroll, setClampedScroll] = useState(Animated.diffClamp(
     Animated.add(
@@ -27,24 +26,24 @@ const Home = ({ navigation }: any) => {
   });
   const renderHeader = () => {
     return (
-      <Animated.View 
-      
-      style={[{backgroundColor : "white",height : 80,zIndex : 10000,position : "absolute",top : 0,right : 0,left : 0,}, {
-        transform: [{ translateY: navbarTranslate }]
-      }]}
-      onLayout={(event) => {
-        let {height} = event.nativeEvent.layout;
-        setClampedScroll(Animated.diffClamp(
-          Animated.add(
-            scrollAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 1],
-              extrapolateLeft: 'clamp'
-            }),
-            offsetAnim
-          ), 0, height)
-        );
-      }}
+      <Animated.View
+
+        style={[{ backgroundColor: "white", height: 80, zIndex: 10000, position: "absolute", top: 0, right: 0, left: 0, }, {
+          transform: [{ translateY: navbarTranslate }]
+        }]}
+        onLayout={(event) => {
+          let { height } = event.nativeEvent.layout;
+          setClampedScroll(Animated.diffClamp(
+            Animated.add(
+              scrollAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 1],
+                extrapolateLeft: 'clamp'
+              }),
+              offsetAnim
+            ), 0, height)
+          );
+        }}
       >
         <View style={{
           flexDirection: "row",
@@ -93,7 +92,7 @@ const Home = ({ navigation }: any) => {
       <View style={{
         flexDirection: "row",
         height: 50,
-        marginTop : 80,
+        marginTop: 80,
         alignItems: "center",
         marginHorizontal: SIZES.padding,
         paddingHorizontal: SIZES.radius,
@@ -206,17 +205,17 @@ const Home = ({ navigation }: any) => {
   }
   return (
     <Animated.View style={{ flex: 1, backgroundColor: "white" }}>
-                  {renderHeader()}
+      {renderHeader()}
 
       <Animated.FlatList
-       bounces={false}
+        bounces={false}
         data={dummyData.categories}
         keyExtractor={item => `${item.id}`}
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View style={{ flex: 1 }}>
-      {renderSearchBar()}
+            {renderSearchBar()}
             {renderSeeRecipeCard()}
             {renderTrendingSection()}
             {renderCategoryHeader()}
@@ -236,7 +235,7 @@ const Home = ({ navigation }: any) => {
           )
         }}
         ListFooterComponent={
-          <View style={{ marginBottom: 100 }} />
+          <View style={{ marginBottom: 50 }} />
         }
         contentInset={{ top: HEADER_HEIGHT }}
         onScroll={Animated.event(
