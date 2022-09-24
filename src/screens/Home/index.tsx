@@ -1,26 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, SafeAreaView, Image, Animated } from 'react-native'
 import { FlatList, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import CategoryCard from '../../components/CategoryCard'
 import TrendingCard from '../../components/TrendingCard'
 import { icons, images, SIZES, COLORS, FONTS, constants, dummyData } from '../../constants'
-
+const HEADER_HEIGHT = 100;
 const Home = ({ navigation }: any) => {
-  const scrollY = new Animated.Value(0);
+  const [scrollAnim] = useState(new Animated.Value(0));
+  const [offsetAnim] = useState(new Animated.Value(0));
+  const [clampedScroll, setClampedScroll] = useState(Animated.diffClamp(
+    Animated.add(
+      scrollAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 1],
+        extrapolateLeft: 'clamp'
+      }),
+      offsetAnim
+    ), 0, 1
+  ));
 
-  const diffClamp = Animated.diffClamp(scrollY, 0, 35)
-  const translateY = diffClamp.interpolate({
-    inputRange: [0, 35],
-    outputRange: [0, -35]
-  })
-
-  const transform = { transform: [{ translateY: translateY }] }
+  const navbarTranslate = clampedScroll.interpolate({
+    inputRange: [0, HEADER_HEIGHT],
+    outputRange: [0, -HEADER_HEIGHT],
+    extrapolate: 'clamp'
+  });
   const renderHeader = () => {
     return (
-      <Animated.View style={transform}>
-
-
+      <Animated.View 
+      
+      style={[{backgroundColor : "white",height : 80,zIndex : 10000,position : "absolute",top : 0,right : 0,left : 0,}, {
+        transform: [{ translateY: navbarTranslate }]
+      }]}
+      onLayout={(event) => {
+        let {height} = event.nativeEvent.layout;
+        setClampedScroll(Animated.diffClamp(
+          Animated.add(
+            scrollAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 1],
+              extrapolateLeft: 'clamp'
+            }),
+            offsetAnim
+          ), 0, height)
+        );
+      }}
+      >
         <View style={{
           flexDirection: "row",
           marginHorizontal: 15,
@@ -68,6 +93,7 @@ const Home = ({ navigation }: any) => {
       <View style={{
         flexDirection: "row",
         height: 50,
+        marginTop : 80,
         alignItems: "center",
         marginHorizontal: SIZES.padding,
         paddingHorizontal: SIZES.radius,
@@ -169,7 +195,7 @@ const Home = ({ navigation }: any) => {
                   marginLeft: index == 0 ? SIZES.padding : 0
                 }}
                 recipeItem={item}
-                onPress={() => navigation.push("Recipe",{recipe : item})} />
+                onPress={() => navigation.push("Recipe", { recipe: item })} />
             )
           }}
         />
@@ -179,22 +205,24 @@ const Home = ({ navigation }: any) => {
     )
   }
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <Animated.View style={{ flex: 1, backgroundColor: "white" }}>
+                  {renderHeader()}
 
-      <FlatList
+      <Animated.FlatList
+       bounces={false}
         data={dummyData.categories}
         keyExtractor={item => `${item.id}`}
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View style={{ flex: 1 }}>
-            {renderHeader()}
-            {renderSearchBar()}
+      {renderSearchBar()}
             {renderSeeRecipeCard()}
             {renderTrendingSection()}
             {renderCategoryHeader()}
           </View>
         }
+        scrollEventThrottle={16}
         stickyHeaderHiddenOnScroll={true}
         renderItem={({ item }: any) => {
           return (
@@ -210,12 +238,20 @@ const Home = ({ navigation }: any) => {
         ListFooterComponent={
           <View style={{ marginBottom: 100 }} />
         }
-        onScroll={(e) => {
-          scrollY.setValue(e.nativeEvent.contentOffset.y)
-        }}
+        contentInset={{ top: HEADER_HEIGHT }}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: { y: scrollAnim }
+              }
+            }
+          ],
+          { useNativeDriver: true }
+        )}
       />
 
-    </SafeAreaView>
+    </Animated.View>
   )
 }
 

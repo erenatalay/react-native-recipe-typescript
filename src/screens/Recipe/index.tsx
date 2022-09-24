@@ -7,12 +7,7 @@ import { icons, images, SIZES, COLORS, FONTS, constants, dummyData } from '../..
 import { Ingredient, RecipeObjectType } from '../../types/recipes';
 
 const HEADER_HIGH = 350;
-const recipeObject: Ingredient = {
-    description: "",
-    icon: 0,
-    id: 0,
-    quantity: "empty",
-};
+
 
 const RecipeCreatorCardDetail = ({ selectedRecipe }: any) => {
     return (
