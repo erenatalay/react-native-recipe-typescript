@@ -3,6 +3,7 @@ import { Text, View, SafeAreaView, Image, Animated } from 'react-native'
 import { FlatList, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import CategoryCard from '../../components/CategoryCard'
+import SearchBar from '../../components/SearchBar'
 import TrendingCard from '../../components/TrendingCard'
 import { icons, images, SIZES, COLORS, FONTS, constants, dummyData } from '../../constants'
 const HEADER_HEIGHT = 100;
@@ -85,32 +86,7 @@ const Home = ({ navigation,scrollAnim }: any) => {
   }
 
 
-  const renderSearchBar = () => {
 
-    return (
-
-      <View style={{
-        flexDirection: "row",
-        height: 50,
-        marginTop: 80,
-        alignItems: "center",
-        marginHorizontal: SIZES.padding,
-        paddingHorizontal: SIZES.radius,
-        borderRadius: 10,
-        backgroundColor: COLORS.lightGray
-      }}>
-        <Image source={icons.search}
-          style={{ width: 20, height: 20, tintColor: COLORS.gray }}
-        />
-
-        <TextInput style={{ ...FONTS.body3, marginLeft: SIZES.radius, }}
-          placeholderTextColor={COLORS.gray}
-          placeholder="Search Recipes"
-        />
-      </View>
-
-    )
-  }
 
   const renderSeeRecipeCard = () => {
     return (
@@ -215,7 +191,16 @@ const Home = ({ navigation,scrollAnim }: any) => {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View style={{ flex: 1 }}>
-            {renderSearchBar()}
+            <SearchBar searchStyle={{
+               flexDirection: "row",
+               height: 50,
+               marginTop: 80,
+               alignItems: "center",
+               marginHorizontal: SIZES.padding,
+               paddingHorizontal: SIZES.radius,
+               borderRadius: 10,
+               backgroundColor: COLORS.lightGray
+            }}/>
             {renderSeeRecipeCard()}
             {renderTrendingSection()}
             {renderCategoryHeader()}

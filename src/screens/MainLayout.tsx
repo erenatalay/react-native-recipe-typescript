@@ -203,7 +203,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation }: any) => {
                             >
                                 {item.label == constants.screens.home && <Home navigation={navigation} scrollAnim={scrollAnim} />}
                                 {item.label == constants.screens.search && <Search />}
-                                {item.label == constants.screens.bookmark && <Bookmark navigation={navigation} />}
+                                {item.label == constants.screens.bookmark && <Bookmark navigation={navigation} scrollAnim={scrollAnim} />}
                                 {item.label == constants.screens.settings && <Settings navigation={navigation} />}
 
 
@@ -245,7 +245,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation }: any) => {
                     borderTopRightRadius: 20,
                     backgroundColor: COLORS.white,
                     transform: [{ translateY: navbarTranslate }],
-                    position : "absolute"
+                    position: "absolute"
 
                 }}
 

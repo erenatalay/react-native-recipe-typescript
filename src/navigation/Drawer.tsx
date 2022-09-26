@@ -3,7 +3,7 @@ import {
     View,
     Text,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
 } from "react-native"
 
 import {
@@ -191,7 +191,7 @@ const CustomDrawer = () => {
                     drawerType: "slide",
                     drawerStyle: { flex: 1, width: "65%", paddingRight: 20, backgroundColor: "darkgreen" },
                     headerShown: false,
-                    sceneContainerStyle: { backgroundColor: "transparent" },
+                    sceneContainerStyle: { backgroundColor: COLORS.transparentBlack5 },
 
                 }}
                 drawerContent={(props: any) => {
