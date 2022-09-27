@@ -65,12 +65,12 @@ const Bookmark = ({ navigation,scrollAnim }: any) => {
           </TouchableOpacity>
 
           <View style={{
+            width : "90%"
           }}>
             <SearchBar
             searchStyle={{
               flexDirection: "row",
               height: 50,
-              width : 300,
               alignItems: "center",
               marginHorizontal: SIZES.padding,
               paddingHorizontal: SIZES.radius,
