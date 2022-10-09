@@ -28,9 +28,23 @@ const tomato = require("../assets/icons/tomato.png")
 const cross = require("../assets/icons/cross.png")
 const logout = require("../assets/icons/logout.png")
 const menu = require("../assets/icons/menu.png")
+const profile = require("../assets/icons/profile.png")
+const verified = require("../assets/icons/verified.png")
+const signout = require("../assets/icons/signout.png")
+const password = require("../assets/icons/password.png")
+const document = require("../assets/icons/document.png")
+const removeAccount = require("../assets/icons/remove-account.png")
+const inArrow = require("../assets/icons/inArrow.png")
 
 export default {
     bookmark,
+    removeAccount,
+    inArrow,
+    document,
+    password,
+    signout,
+    verified,
+    profile,
     bookmarkFilled,
     back,
     home,

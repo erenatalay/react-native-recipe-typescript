@@ -281,8 +281,42 @@ const trendingRecipes = [
 
 const categories = trendingRecipes
 
+const settings = [
+    {
+        name : "Edit Profile",
+        icon : icons.profile,
+        type : "general"
+    },
+    {
+        name : "Change Password",
+        icon : icons.password,
+        type : "general"
+    },
+    {
+        name : "Terms and Conditions",
+        icon : icons.document,
+        type : "legal"
+    },
+    {
+        name : "Privacy Policy",
+        icon : icons.verified,
+        type : "legal"
+    },
+    {
+        name : "Remove Account",
+        icon : icons.removeAccount,
+        type : null
+    },
+    {
+        name : "Logout",
+        icon : icons.signout,
+        type : null
+    },
+]
+
 export default {
     trendingRecipes,
     categories,
-    myProfile
+    myProfile,
+    settings
 }
