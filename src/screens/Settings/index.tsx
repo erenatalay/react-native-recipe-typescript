@@ -56,16 +56,20 @@ const Settings = ({ navigation }: any) => {
 
   const renderProfile = () => {
     return (
-      <View style={{ flex: 1, backgroundColor: COLORS.white,
-        
+      <View style={{
+        flex: 1,
+        backgroundColor: "#EEECED",
+        borderBottomRightRadius : 35,
+        borderBottomLeftRadius : 35,
+       
       }}>
         <View style={{
           marginTop: 80,
           justifyContent: "center",
           alignItems: "center",
-          paddingBottom: 20,
-          borderBottomWidth: 1,
+          paddingVertical: 30,
           borderColor: "lightgray",
+
         }}>
           <Image source={dummyData.myProfile.profile_image} style={{ width: 100, height: 100, borderRadius: 100, borderWidth: 1, borderColor: "black" }} />
           <Text style={{ ...FONTS.h2, fontWeight: "bold" }}>Starlince</Text>
@@ -76,53 +80,62 @@ const Settings = ({ navigation }: any) => {
     )
   }
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.lightGray }}>
+    <View style={{flex : 1, backgroundColor: COLORS.lightGray}}>
       {renderHeader()}
-      <FlatList
-        data={dummyData.settings}
-        keyExtractor={(item: any, index) => `${index}`}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <View>
-            {renderProfile()}
-          </View>
-        }
-        scrollEventThrottle={16}
+      <View style={{
+         flex: 1,
+         backgroundColor: COLORS.white,
+         borderTopEndRadius : 50,
+         borderTopStartRadius : 50
+      }}>
 
-        renderItem={({ item, index }) => {
-          return (
-            <View style={{
-              flexDirection: "column",
-              paddingHorizontal: 10,
-              marginVertical: 4,
-            }}>
-              {
-                index === 0 && item.type === "general" && <Text style={{ ...FONTS.body4, fontWeight: "bold" }}>General</Text>
-              }
-              {
-                item.type === "general" && <ListVertical item={item} />
-              }
-              {
-                index === 2 && item.type === "legal" && <Text style={{ ...FONTS.body4, fontWeight: "bold" }}>Legal</Text>
-              }
-              {
-                item.type === "legal" && <ListVertical item={item} />
-              }
-              {
-                item.type === null && <View style={{marginBottom : 15}}></View>
-              }
-              {
-                item.type === null && <ListVertical item={item} />
-              }
+        <FlatList
+          data={dummyData.settings}
+          keyExtractor={(item: any, index) => `${index}`}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={
+            <View>
+              {renderProfile()}
             </View>
-          )
-        }}
-        ListFooterComponent={
-          <View
-            style={{ marginBottom: 100 }}
-          />
-        }
-      />
+          }
+          scrollEventThrottle={16}
+
+          renderItem={({ item, index }) => {
+            return (
+              <View style={{
+                flexDirection: "column",
+                paddingHorizontal: 10,
+                marginVertical: 5,
+              }}>
+                {
+                  index === 0 && item.type === "general" && <Text style={{ ...FONTS.body4, fontWeight: "bold" }}>General</Text>
+                }
+                {
+                  item.type === "general" && <ListVertical item={item} />
+                }
+                {
+                  index === 2 && item.type === "legal" && <Text style={{ ...FONTS.body4, fontWeight: "bold" }}>Legal</Text>
+                }
+                {
+                  item.type === "legal" && <ListVertical item={item} />
+                }
+                {
+                  item.type === null && <View style={{ marginBottom: 15 }}></View>
+                }
+                {
+                  item.type === null && <ListVertical item={item} />
+                }
+              </View>
+            )
+          }}
+          ListFooterComponent={
+            <View
+              style={{ marginBottom: 100 }}
+            />
+          }
+        />
+      </View>
+
     </View>
   )
 }
