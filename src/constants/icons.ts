@@ -5,7 +5,6 @@ const search = require("../assets/icons/search.png")
 const settings = require("../assets/icons/settings.png")
 const back = require("../assets/icons/back.png")
 const rightArrow = require("../assets/icons/right-arrow.png")
-
 const anchovy = require("../assets/icons/anchovy.png")
 const cheese = require("../assets/icons/cheese.png")
 const chicken = require("../assets/icons/chicken.png")
@@ -35,10 +34,12 @@ const password = require("../assets/icons/password.png")
 const document = require("../assets/icons/document.png")
 const removeAccount = require("../assets/icons/remove-account.png")
 const inArrow = require("../assets/icons/inArrow.png")
+const trash = require("../assets/icons/delete.png")
 
 export default {
     bookmark,
     removeAccount,
+    trash,
     inArrow,
     document,
     password,

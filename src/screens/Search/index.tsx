@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FlatList, Text, View, Animated, TouchableOpacity, Image } from 'react-native'
+import { FlatList, Text, View, Animated, TouchableOpacity, Image, ScrollView } from 'react-native'
 import SearchBar from '../../components/SearchBar';
 import { icons, images, SIZES, COLORS, FONTS, constants, dummyData } from '../../constants'
 const HEADER_HEIGHT = 100;
@@ -101,42 +101,61 @@ const Search = ({ navigation, scrollAnim }: any) => {
                 fontSize: 18,
                 fontWeight: "bold"
               }}>
-                Recent Search
+                Last Search
               </Text>
               <TouchableOpacity>
-                <Text style={{
-                  marginTop: 40,
-                  color: COLORS.primary,
-                  paddingLeft: 10,
-                  fontSize: 18,
-                }}>
-                  View All
-                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: 40 }}>
+                  <Image source={icons.trash} style={{ width: 20, height: 20, tintColor: COLORS.primary }} />
+                  <Text style={{
+                    color: COLORS.primary,
+                    paddingLeft: 10,
+                    fontSize: 18,
+                  }}>
+                    All Clear
+                  </Text>
+                </View>
+
               </TouchableOpacity>
             </View>
-            <View style={{ flexDirection: "column", paddingHorizontal: 10, marginTop: 20 }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 5, paddingVertical: 10 }}>
               <TouchableOpacity style={{
-                flexDirection: "row", alignItems: "center",
-                borderBottomWidth: 1, borderBottomColor: COLORS.lightGray2,
-                paddingBottom: 10,
-                marginVertical: 10
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 10,
+                borderRadius: 10,
+                backgroundColor: COLORS.lightGray,
+                marginRight : 10,
               }}>
-                <Image source={icons.search} style={{ tintColor: COLORS.lightGray2, width: 20, height: 20, marginRight: 20 }} />
-                <Text style={{ fontSize: 17 }}>How to make pizza</Text>
+                <Image source={icons.cross} style={{ width: 20, height: 20,marginRight : 5,marginTop : 2 }} />
+                <Text style={{ fontSize: 17, color: "black" }}>How to make pizza</Text>
               </TouchableOpacity>
               <TouchableOpacity style={{
-                flexDirection: "row", alignItems: "center",
-                borderBottomWidth: 1, borderBottomColor: COLORS.lightGray2,
-                paddingBottom: 10,
-                marginVertical: 10
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 10,
+                borderRadius: 10,
+                backgroundColor: COLORS.lightGray,
+                marginRight : 10,
+
               }}>
-                <Image source={icons.search} style={{ tintColor: COLORS.lightGray2, width: 20, height: 20, marginRight: 20 }} />
-                <Text style={{ fontSize: 17 }}>How to make pizza</Text>
+                <Image source={icons.cross} style={{ width: 20, height: 20,marginRight : 5,marginTop : 2 }} />
+                <Text style={{ fontSize: 17, color: "black" }}>Hamburger</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 10,
+                borderRadius: 10,
+                backgroundColor: COLORS.lightGray,
+                marginRight : 10,
+
+              }}>
+                <Image source={icons.cross} style={{ width: 20, height: 20,marginRight : 5,marginTop : 2 }} />
+                <Text style={{ fontSize: 17, color: "black" }}>Spangle</Text>
               </TouchableOpacity>
 
 
-
-            </View>
+            </ScrollView>
           </>
 
         }
