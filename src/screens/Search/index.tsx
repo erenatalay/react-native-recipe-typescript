@@ -44,24 +44,14 @@ const Search = ({ navigation, scrollAnim }: any) => {
       >
         <View style={{
           flexDirection: "row",
-          marginHorizontal: 15,
+          marginHorizontal: 0,
           alignItems: "center",
           height: 80,
         }}>
 
 
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Image source={images.my_profile}
-              style={{
-                width: 45,
-                height: 45,
-                borderRadius: 20,
-              }}
-            />
-          </TouchableOpacity>
-
           <View style={{
-            width: "90%"
+         flex :1
           }}>
             <SearchBar
               searchStyle={{
@@ -92,7 +82,7 @@ const Search = ({ navigation, scrollAnim }: any) => {
 
             <View style={{
               marginTop: 40,
-              paddingHorizontal: 10,
+              paddingHorizontal: 15,
               flexDirection: "row", alignItems: "center", justifyContent: "space-between"
             }}>
               <Text style={{
@@ -117,7 +107,7 @@ const Search = ({ navigation, scrollAnim }: any) => {
 
               </TouchableOpacity>
             </View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 5, paddingVertical: 10 }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
               <TouchableOpacity style={{
                 flexDirection: "row",
                 alignItems: "center",
