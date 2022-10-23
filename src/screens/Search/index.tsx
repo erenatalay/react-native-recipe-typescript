@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FlatList, Text, View, Animated, TouchableOpacity, Image, ScrollView } from 'react-native'
 import SearchBar from '../../components/SearchBar';
+import VerticalCard from '../../components/VerticalCard';
 import { icons, images, SIZES, COLORS, FONTS, constants, dummyData } from '../../constants'
 const HEADER_HEIGHT = 100;
 
@@ -51,7 +52,7 @@ const Search = ({ navigation, scrollAnim }: any) => {
 
 
           <View style={{
-         flex :1
+            flex: 1
           }}>
             <SearchBar
               searchStyle={{
@@ -114,9 +115,9 @@ const Search = ({ navigation, scrollAnim }: any) => {
                 padding: 10,
                 borderRadius: 10,
                 backgroundColor: COLORS.lightGray,
-                marginRight : 10,
+                marginRight: 10,
               }}>
-                <Image source={icons.cross} style={{ width: 20, height: 20,marginRight : 5,marginTop : 2 }} />
+                <Image source={icons.cross} style={{ width: 20, height: 20, marginRight: 5, marginTop: 2 }} />
                 <Text style={{ fontSize: 17, color: "black" }}>How to make pizza</Text>
               </TouchableOpacity>
               <TouchableOpacity style={{
@@ -125,10 +126,10 @@ const Search = ({ navigation, scrollAnim }: any) => {
                 padding: 10,
                 borderRadius: 10,
                 backgroundColor: COLORS.lightGray,
-                marginRight : 10,
+                marginRight: 10,
 
               }}>
-                <Image source={icons.cross} style={{ width: 20, height: 20,marginRight : 5,marginTop : 2 }} />
+                <Image source={icons.cross} style={{ width: 20, height: 20, marginRight: 5, marginTop: 2 }} />
                 <Text style={{ fontSize: 17, color: "black" }}>Hamburger</Text>
               </TouchableOpacity>
               <TouchableOpacity style={{
@@ -137,15 +138,38 @@ const Search = ({ navigation, scrollAnim }: any) => {
                 padding: 10,
                 borderRadius: 10,
                 backgroundColor: COLORS.lightGray,
-                marginRight : 10,
+                marginRight: 10,
 
               }}>
-                <Image source={icons.cross} style={{ width: 20, height: 20,marginRight : 5,marginTop : 2 }} />
+                <Image source={icons.cross} style={{ width: 20, height: 20, marginRight: 5, marginTop: 2 }} />
                 <Text style={{ fontSize: 17, color: "black" }}>Spangle</Text>
               </TouchableOpacity>
 
 
             </ScrollView>
+            <View style={{ marginTop: 20 }}>
+              <Text style={{ fontWeight: "bold", fontSize: 18, paddingHorizontal: 15, color: "black" }}>Recommend For You</Text>
+              <FlatList
+                data={dummyData.trendingRecipes}
+                keyExtractor={item => `${item.id}`}
+                renderItem={({ item, index }) => {
+                  return (
+                    <VerticalCard
+                      containerStyle={{
+                        paddingHorizontal: 5,
+                        marginTop : 15,
+                        flexDirection : "row"
+                      }}
+                      recipeItem={item}
+                      index={index}
+                      onPress={() => navigation.push("Recipe", { recipe: item })} />
+                  )
+                }}
+
+     
+              />
+
+            </View>
           </>
 
         }

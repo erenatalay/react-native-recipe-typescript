@@ -83,7 +83,6 @@ const VerticalCard = ({ containerStyle, recipeItem, onPress,index }: any) => {
                 ...containerStyle,
                 height: 350,
                 width : "100%",
-                marginTop:  index === 0 ? 80 :  15,
                 borderRadius: SIZES.radius,
                 
             }}
