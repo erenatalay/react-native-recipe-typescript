@@ -70,7 +70,9 @@ const CustomDrawerContent = ({ navigation }: any) => {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        dispatch(logout() as any);
+        dispatch(logout() as any)
+        navigation.navigate("Login")
+
 
     }
 

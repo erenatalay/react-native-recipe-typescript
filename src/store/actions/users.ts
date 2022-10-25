@@ -10,7 +10,7 @@ export const login = (item: LoginForm) => (dispatch: UserDispatch) => {
 };
 
 export const logout = () => (dispatch : UserDispatch) => {
-  dispatch({
+  return dispatch({
       type: "LOGOUT",
   })
 

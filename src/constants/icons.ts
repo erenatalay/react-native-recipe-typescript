@@ -35,12 +35,18 @@ const document = require("../assets/icons/document.png")
 const removeAccount = require("../assets/icons/remove-account.png")
 const inArrow = require("../assets/icons/inArrow.png")
 const trash = require("../assets/icons/delete.png")
+const google = require("../assets/icons/google.png")
+const twitter = require("../assets/icons/twitter.png")
+const facebook = require("../assets/icons/facebook.png")
 
 export default {
     bookmark,
     removeAccount,
     trash,
     inArrow,
+    facebook,
+    google,
+    twitter,
     document,
     password,
     signout,
