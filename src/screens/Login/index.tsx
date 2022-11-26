@@ -3,29 +3,22 @@ import { Text, View, StatusBar, ImageBackground, Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import CustomButton from '../../components/CustomButton'
 import { icons, images, SIZES, COLORS, FONTS, constants } from '../../constants'
-import { useForm, Controller } from 'react-hook-form';
-import Input from '../../components/Input'
+import { useForm, Controller, UseFormReturn, FieldValues } from 'react-hook-form';
+import Input from '../../components/formElements/Input'
+import { StackNavigationProp } from '@react-navigation/stack'
+import TextInput from '../../components/formElements/TextInput'
 
-const resolver: Resolver<any> = async (values) => ({
-    values: values.email && values.password ? values : {},
-    errors:
-        !values.email && !values.password
-            ? {
-                email: {
-                    type: 'required',
-                    message: 'This is required.'
-                },
-                password: {
-                    type: 'required',
-                    message: 'This is required'
-                }
-            }
-            : {}
-});
+interface LoginFormProps {
+    navigation : StackNavigationProp<any>
+  }
 
-const Login = ({ navigation }: any) => {
+const Login : React.FC<LoginFormProps> = (props) => {
 
-     
+    const { navigation } = props;
+    const form = useForm();
+    const onSubmit = (data: Record<string, unknown>) => {
+        console.log(data)
+      };
 
     const renderHeader = () => {
         return (
@@ -94,19 +87,9 @@ const Login = ({ navigation }: any) => {
                     Please enter account information
                 </Text>
                 <View style={{ flex: 1 }}>
-                    <Input
-                        styleContainer={{ marginTop: 10 }}
-                        name={'email'}
-                        type={'default'}
-                        label={"Email"}
-                    />
+                <TextInput form={form} name={'email'} placeholder={'Email'} />
 
-                    <Input
-                        styleContainer={{ marginTop: 5 }}
-                        name={'password'}
-                        type={'password'}
-                        label={"Password"}
-                    />
+                
                 </View>
                 <View style={{ flex :1, justifyContent: "center" }}>
                     <CustomButton
@@ -116,7 +99,7 @@ const Login = ({ navigation }: any) => {
                             borderRadius: 20
                         }}
                         colors={[COLORS.primary, COLORS.primary]}
-                        onPress={() => navigation.navigate("Home")}
+                        onPress={form.handleSubmit(onSubmit)}
                     />
 
                         <Text style={{textAlign : "center",color : "black",marginTop : 5}}>Or Login With</Text>
