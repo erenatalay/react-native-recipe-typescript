@@ -3,22 +3,34 @@ import { Text, View, StatusBar, ImageBackground, Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import CustomButton from '../../components/CustomButton'
 import { icons, images, SIZES, COLORS, FONTS, constants } from '../../constants'
-import { useForm, Controller, UseFormReturn, FieldValues } from 'react-hook-form';
-import Input from '../../components/formElements/Input'
+import { useForm } from 'react-hook-form';
 import { StackNavigationProp } from '@react-navigation/stack'
-import TextInput from '../../components/formElements/TextInput'
+import PasswordInput from '../../components/formElements/PasswordInput'
+import EmailInput from '../../components/formElements/EmailInput'
 
 interface LoginFormProps {
-    navigation : StackNavigationProp<any>
-  }
+    navigation: StackNavigationProp<any>
+}
+const loginOptions = {
+    email: { required: "Email is required" },
+    password: {
+        required: "Password is required",
+        minLength: {
+            value: 8,
+            message: "Password must have at least 8 characters"
+        }
+    }
+};
 
-const Login : React.FC<LoginFormProps> = (props) => {
+const Login: React.FC<LoginFormProps> = (props) => {
 
     const { navigation } = props;
     const form = useForm();
     const onSubmit = (data: Record<string, unknown>) => {
         console.log(data)
-      };
+
+    };
+    console.log(form.formState.errors)
 
     const renderHeader = () => {
         return (
@@ -62,6 +74,8 @@ const Login : React.FC<LoginFormProps> = (props) => {
         )
     }
 
+
+
     const renderDetail = () => {
         return (
             <View style={{
@@ -87,11 +101,12 @@ const Login : React.FC<LoginFormProps> = (props) => {
                     Please enter account information
                 </Text>
                 <View style={{ flex: 1 }}>
-                <TextInput form={form} name={'email'} placeholder={'Email'} />
+                    <EmailInput form={form} placeholder={'Email'} {...form.register('email', loginOptions.email)} />
+                    <PasswordInput form={form} placeholder={'Password'} {...form.register('password', loginOptions.password)} />
 
-                
+
                 </View>
-                <View style={{ flex :1, justifyContent: "center" }}>
+                <View style={{ flex: 1, justifyContent: "center" }}>
                     <CustomButton
                         buttonText='Login'
                         buttonContainerStyle={{
@@ -102,21 +117,21 @@ const Login : React.FC<LoginFormProps> = (props) => {
                         onPress={form.handleSubmit(onSubmit)}
                     />
 
-                        <Text style={{textAlign : "center",color : "black",marginTop : 5}}>Or Login With</Text>
-                        <View style={{flexDirection : "row",alignItems : "center",justifyContent : "center",marginTop : 10}}>
-                            <View style={{backgroundColor : "#1354AB",padding : 10,borderRadius : 20,marginRight : 10}}>
-                            <Image source={icons.facebook} style={{tintColor : "white",width : 20,height :20}}/>
+                    <Text style={{ textAlign: "center", color: "black", marginTop: 5 }}>Or Login With</Text>
+                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: 10 }}>
+                        <View style={{ backgroundColor: "#1354AB", padding: 10, borderRadius: 20, marginRight: 10 }}>
+                            <Image source={icons.facebook} style={{ tintColor: "white", width: 20, height: 20 }} />
 
-                            </View>
-                            <View style={{backgroundColor : "#0AAAFD",padding : 10,borderRadius : 20,marginRight : 10}}>
-                            <Image source={icons.twitter} style={{tintColor : "white",width : 20,height :20}}/>
-
-                            </View>
-                            <View style={{backgroundColor : "#F55B5B",padding : 10,borderRadius : 20}}>
-                            <Image source={icons.google} style={{tintColor : "white",width : 20,height :20}}/>
-
-                            </View>
                         </View>
+                        <View style={{ backgroundColor: "#0AAAFD", padding: 10, borderRadius: 20, marginRight: 10 }}>
+                            <Image source={icons.twitter} style={{ tintColor: "white", width: 20, height: 20 }} />
+
+                        </View>
+                        <View style={{ backgroundColor: "#F55B5B", padding: 10, borderRadius: 20 }}>
+                            <Image source={icons.google} style={{ tintColor: "white", width: 20, height: 20 }} />
+
+                        </View>
+                    </View>
                 </View>
 
             </View>

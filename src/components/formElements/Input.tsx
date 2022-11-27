@@ -1,8 +1,9 @@
 import React, { FC, FormEvent } from 'react';
-import {TextStyle} from "react-native";
+import { TextStyle } from "react-native";
 import {
   Controller,
   FieldValues,
+  UseFormRegister,
   UseFormReturn,
   Validate,
   ValidationRule,
@@ -36,23 +37,24 @@ export interface InputProps {
   label?: string;
   name: `${string}`;
   defaultValue?: string;
-  type : "numeric" | "default" | "email-address",
+  type: "numeric" | "default" | "email-address",
   placeholder?: string;
   onChangeText?: (input: string) => void;
   errorMessage?: ErrorMessagesRules;
   rules?: FormRules;
   required?: boolean;
   labelStyle?: TextStyle;
-  inputStyle?:TextStyle;
-
+  inputStyle?: TextStyle;
+  secureTextEntry?: boolean;
   min?: number;
   max?: number;
+  register?: UseFormRegister<ErrorMessagesRules>,
 }
 
 const Input: FC<InputProps> = (props) => {
-  const { form, onChangeText, inputStyle, labelStyle, placeholder,type} = props;
+  const { form, onChangeText, inputStyle, labelStyle, placeholder, type, secureTextEntry = false, register } = props;
 
-  const handleOnChange = (text : string,onChange: (input: string) => void) => {
+  const handleOnChange = (text: string, onChange: (input: string) => void) => {
     if (onChangeText) {
       onChangeText(text);
     }
@@ -63,15 +65,18 @@ const Input: FC<InputProps> = (props) => {
     <Controller
       control={form.control}
       {...props}
-      render={({ field: { onChange, onBlur, value } }) => (
+      render={({ field: { onChange, onBlur,value } }) => (
         <BaseInput
           value={value}
           labelStyle={labelStyle}
           inputStyle={inputStyle}
           placeholder={placeholder}
+          secureTextEntry={secureTextEntry}
           onBlur={onBlur}
           type={type}
-          onChangeText={(text: string) => handleOnChange(text,onChange)}
+          onChangeText={(text: string) => handleOnChange(text, onChange)}
+          {...register}
+
         />
       )}
     />
