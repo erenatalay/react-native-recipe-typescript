@@ -12,14 +12,16 @@ interface LoginFormProps {
     navigation: StackNavigationProp<any>
 }
 const loginOptions = {
-    email: { required: "Email is required" },
-    password: {
-        required: "Password is required",
-        minLength: {
-            value: 8,
-            message: "Password must have at least 8 characters"
+    email: {
+        MESSAGE: {
+            required :'Bu Alan Zorunludur',
+            minLength: '2 değerden küçük olamaz'
+        },
+        REQUIRED: {
+            required: true,
+            minLength: 2
         }
-    }
+    },
 };
 
 const Login: React.FC<LoginFormProps> = (props) => {
@@ -101,8 +103,19 @@ const Login: React.FC<LoginFormProps> = (props) => {
                     Please enter account information
                 </Text>
                 <View style={{ flex: 1 }}>
-                    <EmailInput form={form} placeholder={'Email'} {...form.register('email', loginOptions.email)} />
-                    <PasswordInput form={form} placeholder={'Password'} {...form.register('password', loginOptions.password)} />
+                    <EmailInput
+                        form={form}
+                        name="email"
+                        placeholder={'Email'}
+                        rules={loginOptions.email.REQUIRED}
+                        errorMessage={loginOptions.email.MESSAGE}
+
+                    />
+                    <PasswordInput
+                        form={form}
+                        name="password"
+                        placeholder={'Password'}
+                    />
 
 
                 </View>
