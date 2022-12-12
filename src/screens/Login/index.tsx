@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StatusBar, ImageBackground, Image } from 'react-native'
+import { Text, View, StatusBar, ImageBackground, Image, SafeAreaView } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import CustomButton from '../../components/CustomButton'
 import { icons, images, SIZES, COLORS, FONTS, constants } from '../../constants'
@@ -102,7 +102,7 @@ const Login: React.FC<LoginFormProps> = (props) => {
                 }}>
                     Please enter account information
                 </Text>
-                <View style={{ flex: 1 }}>
+                <View >
                     <EmailInput
                         form={form}
                         name="email"
@@ -119,11 +119,11 @@ const Login: React.FC<LoginFormProps> = (props) => {
 
 
                 </View>
-                <View style={{ flex: 1, justifyContent: "center" }}>
+                <View style={{  justifyContent: "center" }}>
                     <CustomButton
                         buttonText='Login'
                         buttonContainerStyle={{
-                            paddingVertical: 15,
+                            paddingVertical: 10,
                             borderRadius: 20
                         }}
                         colors={[COLORS.primary, COLORS.primary]}
@@ -151,13 +151,13 @@ const Login: React.FC<LoginFormProps> = (props) => {
         )
     }
     return (
-        <View style={{ flex: 1, backgroundColor: COLORS.black }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
             <StatusBar barStyle="light-content" />
 
             {renderHeader()}
 
             {renderDetail()}
-        </View>
+        </SafeAreaView>
     )
 }
 
