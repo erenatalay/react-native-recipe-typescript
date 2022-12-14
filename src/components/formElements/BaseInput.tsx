@@ -8,16 +8,19 @@ export interface BaseInputProps extends HTMLProps<HTMLInputElement> {
   value : string,
   inputStyle?:TextStyle;
   labelStyle? : TextStyle
+  onFocus? : () => void
 
 }
 const BaseInput: FC<BaseInputProps> = (props) => {
-  const { label, type, placeholder, onChangeText,value,inputStyle,secureTextEntry = false } = props;
+  const { label, type, placeholder, onChangeText,value,inputStyle,secureTextEntry = false ,onFocus} = props;
+
+
   return (
     <View>
       {label && (
           <Text style={inputStyle}>{label}</Text>
       )}
-      <TextInput style={inputStyle} secureTextEntry={secureTextEntry} keyboardType={type} value={value} placeholder={placeholder} onChangeText={onChangeText} />
+      <TextInput style={inputStyle} onFocus={onFocus} secureTextEntry={secureTextEntry} keyboardType={type} value={value} placeholder={placeholder} onChangeText={onChangeText} />
     </View>
   );
 };

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, View, StatusBar, ImageBackground, Image, SafeAreaView } from 'react-native'
+import React, { useState } from 'react'
+import { Text, View, StatusBar, ImageBackground, Image, SafeAreaView, StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import CustomButton from '../../components/CustomButton'
 import { icons, images, SIZES, COLORS, FONTS, constants } from '../../constants'
@@ -15,11 +15,19 @@ const loginOptions = {
     email: {
         MESSAGE: {
             required :'Bu Alan Zorunludur',
-            minLength: '2 değerden küçük olamaz'
+            minLength: '3 değerden küçük olamaz'
         },
         REQUIRED: {
             required: true,
-            minLength: 2
+            minLength: 3
+        }
+    },
+    password: {
+        MESSAGE: {
+            required :'Bu Alan Zorunludur',
+        },
+        REQUIRED: {
+            required: true,
         }
     },
 };
@@ -27,13 +35,12 @@ const loginOptions = {
 const Login: React.FC<LoginFormProps> = (props) => {
 
     const { navigation } = props;
+    const [focus,setFocus] = useState<string>("")
     const form = useForm();
     const onSubmit = (data: Record<string, unknown>) => {
         console.log(data)
-
     };
-    console.log(form.formState.errors)
-
+    console.log(form.formState)
     const renderHeader = () => {
         return (
             <View style={{
@@ -75,9 +82,6 @@ const Login: React.FC<LoginFormProps> = (props) => {
             </View>
         )
     }
-
-
-
     const renderDetail = () => {
         return (
             <View style={{
@@ -104,17 +108,22 @@ const Login: React.FC<LoginFormProps> = (props) => {
                 </Text>
                 <View >
                     <EmailInput
+                        inputStyle={focus === "email" ? styles.activeInput : styles.pasiveInput}
                         form={form}
                         name="email"
                         placeholder={'Email'}
                         rules={loginOptions.email.REQUIRED}
                         errorMessage={loginOptions.email.MESSAGE}
-
+                        onFocus={() => setFocus("email")}
                     />
                     <PasswordInput
                         form={form}
                         name="password"
+                        inputStyle={focus === "password" ? styles.activeInput : styles.pasiveInput}
                         placeholder={'Password'}
+                        onFocus={() => setFocus("password")}
+                        rules={loginOptions.password.REQUIRED}
+                        errorMessage={loginOptions.password.MESSAGE}
                     />
 
 
@@ -161,4 +170,15 @@ const Login: React.FC<LoginFormProps> = (props) => {
     )
 }
 
+
+const styles = StyleSheet.create({
+    activeInput : {
+        borderBottomWidth : 1,
+        borderBottomColor : COLORS.primary
+    },
+    pasiveInput : {
+        borderBottomWidth : 1,
+        borderBottomColor : "gray"
+    },
+})
 export default Login;

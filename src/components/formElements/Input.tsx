@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from 'react';
+import React, { FC, FormEvent, useEffect } from 'react';
 import { Text, TextStyle } from "react-native";
 import {
   Controller,
@@ -48,11 +48,12 @@ export interface InputProps {
   secureTextEntry?: boolean;
   min?: number;
   max?: number;
+  onFocus? : () => void
   register?: UseFormRegister<ErrorMessagesRules>,
 }
 
 const Input: FC<InputProps> = (props) => {
-  const { form, onChangeText, inputStyle, labelStyle, placeholder, type, secureTextEntry = false, errorMessage,name } = props;
+  const { form, onChangeText,onFocus, inputStyle, labelStyle, placeholder, type, secureTextEntry = false, errorMessage, name } = props;
 
   const handleOnChange = (text: string, onChange: (input: string) => void) => {
     if (onChangeText) {
@@ -63,28 +64,25 @@ const Input: FC<InputProps> = (props) => {
 
   return (
     <>
-
-
       <Controller
         control={form.control}
         {...props}
         render={({ field: { onChange, onBlur, value } }) => (
           <BaseInput
+            name={name}
             value={value}
             labelStyle={labelStyle}
             inputStyle={inputStyle}
             placeholder={placeholder}
             secureTextEntry={secureTextEntry}
             onBlur={onBlur}
+            onFocus={onFocus}
             type={type}
             onChangeText={(text: string) => handleOnChange(text, onChange)}
-          
-
           />
-
         )}
       />
-      <Text style={{marginVertical : 5,color : "red"}}>
+      <Text style={{ marginVertical: 5, color: "red" }}>
         {errorMessage?.[form.formState.errors?.[name]?.type as keyof ErrorMessagesRules] || ''}
       </Text>
     </>
