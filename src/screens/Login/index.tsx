@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { StackNavigationProp } from '@react-navigation/stack'
 import PasswordInput from '../../components/formElements/PasswordInput'
 import EmailInput from '../../components/formElements/EmailInput'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface LoginFormProps {
     navigation: StackNavigationProp<any>
@@ -14,7 +15,7 @@ interface LoginFormProps {
 const loginOptions = {
     email: {
         MESSAGE: {
-            required :'Bu Alan Zorunludur',
+            required: 'Bu Alan Zorunludur',
             minLength: '3 değerden küçük olamaz'
         },
         REQUIRED: {
@@ -24,7 +25,7 @@ const loginOptions = {
     },
     password: {
         MESSAGE: {
-            required :'Bu Alan Zorunludur',
+            required: 'Bu Alan Zorunludur',
         },
         REQUIRED: {
             required: true,
@@ -35,7 +36,7 @@ const loginOptions = {
 const Login: React.FC<LoginFormProps> = (props) => {
 
     const { navigation } = props;
-    const [focus,setFocus] = useState<string>("")
+    const [focus, setFocus] = useState<string>("")
     const form = useForm();
     const onSubmit = (data: Record<string, unknown>) => {
         console.log(data)
@@ -46,36 +47,42 @@ const Login: React.FC<LoginFormProps> = (props) => {
             <View style={{
                 height: SIZES.height > 700 ? "40%" : "30%"
             }}>
+
                 <ImageBackground source={images.loginBackground}
                     style={{ flex: 1, justifyContent: "flex-end" }}
                     resizeMode="cover"
                 >
+                    <View style={{ flex: 1, flexDirection: "column", justifyContent: "space-between" }}>
 
+                        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
+                            <Image source={icons.back} style={{ width: 20, height: 20, tintColor: "white", margin: 20 }} />
+                        </TouchableOpacity>
+                        <LinearGradient
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 0, y: 1 }}
+                            colors={[
+                                COLORS.transparent,
+                                COLORS.black
+                            ]}
+                            style={{
+                                height: 150,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                paddingHorizontal: SIZES.padding,
+                            }}
+                        >
+                            <Text style={{
+                                ...FONTS.largeTitle,
+                                color: COLORS.white,
+                                lineHeight: 45,
+                                textAlign: "center",
+                                height: "100%",
+                                fontWeight: "bold"
 
-                    <LinearGradient
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 0, y: 1 }}
-                        colors={[
-                            COLORS.transparent,
-                            COLORS.black
-                        ]}
-                        style={{
-                            height: 150,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            paddingHorizontal: SIZES.padding,
-                        }}
-                    >
-                        <Text style={{
-                            ...FONTS.largeTitle,
-                            color: COLORS.white,
-                            lineHeight: 45,
-                            textAlign: "center",
-                            height: "100%",
-                            fontWeight: "bold"
+                            }}>Sign Up</Text>
+                        </LinearGradient>
+                    </View>
 
-                        }}>Sign Up</Text>
-                    </LinearGradient>
                 </ImageBackground>
 
 
@@ -128,7 +135,7 @@ const Login: React.FC<LoginFormProps> = (props) => {
 
 
                 </View>
-                <View style={{  justifyContent: "center" }}>
+                <View style={{ justifyContent: "center" }}>
                     <CustomButton
                         buttonText='Login'
                         buttonContainerStyle={{
@@ -172,13 +179,13 @@ const Login: React.FC<LoginFormProps> = (props) => {
 
 
 const styles = StyleSheet.create({
-    activeInput : {
-        borderBottomWidth : 1,
-        borderBottomColor : COLORS.primary
+    activeInput: {
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.primary
     },
-    pasiveInput : {
-        borderBottomWidth : 1,
-        borderBottomColor : "gray"
+    pasiveInput: {
+        borderBottomWidth: 1,
+        borderBottomColor: "gray"
     },
 })
 export default Login;
