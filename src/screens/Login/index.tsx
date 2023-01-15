@@ -1,47 +1,40 @@
 import React, { useState } from 'react'
-import { Text, View, StatusBar, ImageBackground, Image, SafeAreaView, StyleSheet } from 'react-native'
+import { Text, View, StatusBar, ImageBackground, Image, SafeAreaView, StyleSheet,KeyboardAvoidingView } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomButton from '../../components/CustomButton'
 import { icons, images, SIZES, COLORS, FONTS, constants } from '../../constants'
-import { useForm } from 'react-hook-form';
 import { StackNavigationProp } from '@react-navigation/stack'
-import PasswordInput from '../../components/formElements/PasswordInput'
-import EmailInput from '../../components/formElements/EmailInput'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-
+import { useFormik } from 'formik';
+import { LoginRequest } from '../../types/request/login'
+import { loginValidation } from '../../validations/login'
+import FormInput from '../../components/formElements/Input'
 interface LoginFormProps {
     navigation: StackNavigationProp<any>
 }
-const loginOptions = {
-    email: {
-        MESSAGE: {
-            required: 'Bu Alan Zorunludur',
-            minLength: '3 değerden küçük olamaz'
-        },
-        REQUIRED: {
-            required: true,
-            minLength: 3
-        }
-    },
-    password: {
-        MESSAGE: {
-            required: 'Bu Alan Zorunludur',
-        },
-        REQUIRED: {
-            required: true,
-        }
-    },
-};
+
 
 const Login: React.FC<LoginFormProps> = (props) => {
 
     const { navigation } = props;
     const [focus, setFocus] = useState<string>("")
-    const form = useForm();
-    const onSubmit = (data: Record<string, unknown>) => {
-        console.log(data)
-    };
-    console.log(form.formState)
+    const { handleBlur, handleSubmit, values, touched, errors, setFieldValue, handleChange, resetForm } = useFormik({
+        initialValues: {
+            username: '',
+            password: ''
+        },
+        validationSchema: loginValidation,
+        onSubmit: (values: LoginRequest) => {
+            console.log(values)
+        }
+    })
+    const _changeText = (field: string, text: string) => {
+        setFieldValue(field, text)
+        handleChange(field)
+    }
+    const _blurText = (field: string) => {
+        handleBlur(field)
+    }
     const renderHeader = () => {
         return (
             <View style={{
@@ -57,6 +50,7 @@ const Login: React.FC<LoginFormProps> = (props) => {
                         <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
                             <Image source={icons.back} style={{ width: 20, height: 20, tintColor: "white", margin: 20 }} />
                         </TouchableOpacity>
+
                         <LinearGradient
                             start={{ x: 0, y: 0 }}
                             end={{ x: 0, y: 1 }}
@@ -113,28 +107,30 @@ const Login: React.FC<LoginFormProps> = (props) => {
                 }}>
                     Please enter account information
                 </Text>
-                <View >
-                    <EmailInput
-                        inputStyle={focus === "email" ? styles.activeInput : styles.pasiveInput}
-                        form={form}
-                        name="email"
-                        placeholder={'Email'}
-                        rules={loginOptions.email.REQUIRED}
-                        errorMessage={loginOptions.email.MESSAGE}
-                        onFocus={() => setFocus("email")}
+                <KeyboardAvoidingView >
+                    <FormInput
+                        name={'username'}
+                        label={'Username'}
+                        value={values.username}
+                        onBlur={_blurText}
+                        keyboardType={'default'}
+                        onChangeText={_changeText}
+                        error={errors.username}
+                        touched={touched.username}
                     />
-                    <PasswordInput
-                        form={form}
-                        name="password"
-                        inputStyle={focus === "password" ? styles.activeInput : styles.pasiveInput}
-                        placeholder={'Password'}
-                        onFocus={() => setFocus("password")}
-                        rules={loginOptions.password.REQUIRED}
-                        errorMessage={loginOptions.password.MESSAGE}
+                    <FormInput
+                        name={'password'}
+                        label={'Password'}
+                        value={values.password}
+                        onBlur={_blurText}
+                        keyboardType={'default'}
+                        onChangeText={_changeText}
+                        secureTextEntry={true}
+                        error={errors.password}
+                        touched={touched.password}
                     />
 
-
-                </View>
+                </KeyboardAvoidingView>
                 <View style={{ justifyContent: "center" }}>
                     <CustomButton
                         buttonText='Login'
@@ -143,7 +139,7 @@ const Login: React.FC<LoginFormProps> = (props) => {
                             borderRadius: 20
                         }}
                         colors={[COLORS.primary, COLORS.primary]}
-                        onPress={form.handleSubmit(onSubmit)}
+                        onPress={() => handleSubmit()}
                     />
 
                     <Text style={{ textAlign: "center", color: "black", marginTop: 5 }}>Or Login With</Text>
