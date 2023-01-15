@@ -5,6 +5,7 @@ import Drawer from "./navigation/Drawer";
 import Welcome from './screens/Welcome';
 import Login from './screens/Login';
 import Recipe from './screens/Recipe';
+import Register from './screens/Register';
 const App = () => {
   const Stack = createStackNavigator();
   return (
@@ -12,7 +13,7 @@ const App = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }} >
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Home" component={Drawer} />
         <Stack.Screen name="Recipe" component={Recipe} />
       </Stack.Navigator>

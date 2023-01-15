@@ -73,7 +73,7 @@ const Login: React.FC<LoginFormProps> = (props) => {
                                 height: "100%",
                                 fontWeight: "bold"
 
-                            }}>Sign Up</Text>
+                            }}>Sign In</Text>
                         </LinearGradient>
                     </View>
 

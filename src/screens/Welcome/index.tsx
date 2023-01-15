@@ -79,7 +79,7 @@ const Welcome = ({ navigation }: any) => {
                         }}
                         buttonText='Sign Up'
                         colors={[]}
-                        onPress={() => navigation.replace("Home")}
+                        onPress={() => navigation.replace("Register")}
                     />
                 </View>
 

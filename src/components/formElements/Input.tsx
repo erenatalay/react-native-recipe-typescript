@@ -10,7 +10,7 @@ interface IFormInput {
     onChangeText: (input: string, text: string) => void
     onBlur: (input: string) => void
     value: any
-    keyboardType: "default" | "numeric"
+    keyboardType: "default" | "numeric" |'email-address'
     error: string | undefined
     touched: boolean | undefined
     secureTextEntry? : boolean
