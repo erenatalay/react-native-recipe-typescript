@@ -1,4 +1,4 @@
-package com.recipes.newarchitecture;
+package com.starlince.recipes.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.recipes.BuildConfig;
-import com.recipes.newarchitecture.components.MainComponentsRegistry;
-import com.recipes.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.starlince.recipes.BuildConfig;
+import com.starlince.recipes.newarchitecture.components.MainComponentsRegistry;
+import com.starlince.recipes.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -10,7 +10,7 @@ import {
     TouchableWithoutFeedback,
     Animated as Animateds
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'
 import Animated from "react-native-reanimated";
 import { icons, images, SIZES, COLORS, FONTS, constants } from '../constants'
 import { useDispatch, useSelector } from 'react-redux';

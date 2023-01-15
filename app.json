@@ -1,4 +1,14 @@
 {
-  "name": "Recipes",
-  "displayName": "Recipes"
+  "expo": {
+    "name": "recipes",
+    "scheme": "recipes",
+    "extra": {
+      "eas": {
+        "projectId": "2212a79a-c998-4bfb-a3e5-2db3fb851d5b"
+      }
+    },
+    "android": {
+      "package": "com.starlince.recipes"
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, StatusBar, ImageBackground, TouchableOpacity } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient'
 import { icons, images, SIZES, COLORS, FONTS, constants } from '../constants'
 import { ButtonType } from '../types/button'
 
