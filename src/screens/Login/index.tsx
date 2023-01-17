@@ -26,6 +26,7 @@ const Login: React.FC<LoginFormProps> = (props) => {
         validationSchema: loginValidation,
         onSubmit: (values: LoginRequest) => {
             console.log(values)
+            navigation.navigate("Home")
         }
     })
     const _changeText = (field: string, text: string) => {
