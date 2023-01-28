@@ -48,7 +48,7 @@ const Register: React.FC<RegisterProps> = (props) => {
                     <View style={{ flex: 1, flexDirection: "column", justifyContent: "space-between" }}>
 
                         <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-                            <Image source={icons.back} style={{ width: 20, height: 20, tintColor: "white", margin: 20 }} />
+                            <Image source={icons.back} style={styles.backImage} />
                         </TouchableOpacity>
 
                         <LinearGradient
@@ -65,15 +65,7 @@ const Register: React.FC<RegisterProps> = (props) => {
                                 paddingHorizontal: SIZES.padding,
                             }}
                         >
-                            <Text style={{
-                                ...FONTS.largeTitle,
-                                color: COLORS.white,
-                                lineHeight: 45,
-                                textAlign: "center",
-                                height: "100%",
-                                fontWeight: "bold"
-
-                            }}>Sign Up</Text>
+                            <Text style={styles.signIn}>Sign Up</Text>
                         </LinearGradient>
                     </View>
 
@@ -85,14 +77,7 @@ const Register: React.FC<RegisterProps> = (props) => {
     }
     const renderDetail = () => {
         return (
-            <View style={{
-                flex: 1,
-                paddingHorizontal: 20,
-                backgroundColor: "white",
-                borderTopEndRadius: 30,
-                borderTopLeftRadius: 30,
-                paddingTop: 20
-            }}>
+            <View style={styles.registerBG}>
                 {/* <Text style={{
                   ...FONTS.h1,
                   marginTop: SIZES.radius,
@@ -159,16 +144,16 @@ const Register: React.FC<RegisterProps> = (props) => {
                     />
 
                     <Text style={{ textAlign: "center", color: "black", marginTop: 5 }}>Or Register With</Text>
-                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: 10 }}>
-                        <View style={{ backgroundColor: "#1354AB", padding: 10, borderRadius: 20, marginRight: 10 }}>
+                    <View style={styles.buttonGrid}>
+                        <View style={styles.buttonFb}>
                             <Image source={icons.facebook} style={{ tintColor: "white", width: 20, height: 20 }} />
 
                         </View>
-                        <View style={{ backgroundColor: "#0AAAFD", padding: 10, borderRadius: 20, marginRight: 10 }}>
+                        <View style={styles.buttonTw}>
                             <Image source={icons.twitter} style={{ tintColor: "white", width: 20, height: 20 }} />
 
                         </View>
-                        <View style={{ backgroundColor: "#F55B5B", padding: 10, borderRadius: 20 }}>
+                        <View style={styles.buttonG}>
                             <Image source={icons.google} style={{ tintColor: "white", width: 20, height: 20 }} />
 
                         </View>
@@ -188,5 +173,63 @@ const Register: React.FC<RegisterProps> = (props) => {
         </SafeAreaView>
     )
 }
+const styles = StyleSheet.create({
+    activeInput: {
+      borderBottomWidth: 1,
+      borderBottomColor: COLORS.primary,
+    },
+    pasiveInput: {
+      borderBottomWidth: 1,
+      borderBottomColor: 'gray',
+    },
+    backImage: {
+      width: 20,
+      height: 20,
+      tintColor: 'white',
+      margin: 20,
+    },
+
+    registerBG: {
+      flex: 1,
+      paddingHorizontal: 20,
+      backgroundColor: 'white',
+      borderTopEndRadius: 30,
+      borderTopLeftRadius: 30,
+      paddingTop: 20,
+    },
+    signInDetailText: {
+      ...FONTS.h1,
+      marginTop: SIZES.radius,
+      width: '70%',
+      color: COLORS.black,
+    },
+    signInDetailText2: {
+      ...FONTS.body3,
+      color: COLORS.gray,
+    },
+    buttonGrid:{
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 10,
+    },
+    buttonFb:{
+      backgroundColor: '#1354AB',
+      padding: 10,
+      borderRadius: 20,
+      marginRight: 10,
+    },
+    buttonTw:{
+      backgroundColor: '#0AAAFD',
+      padding: 10,
+      borderRadius: 20,
+      marginRight: 10,
+    },
+    buttonG:{
+      backgroundColor: '#F55B5B',
+      padding: 10,
+      borderRadius: 20,
+    }
+  });
 
 export default Register
