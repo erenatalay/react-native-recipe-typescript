@@ -65,7 +65,7 @@ const Register: React.FC<RegisterProps> = (props) => {
                                 paddingHorizontal: SIZES.padding,
                             }}
                         >
-                            <Text style={styles.signIn}>Sign Up</Text>
+                            <Text style={styles.signUp}>Sign Up</Text>
                         </LinearGradient>
                     </View>
 
@@ -188,7 +188,14 @@ const styles = StyleSheet.create({
       tintColor: 'white',
       margin: 20,
     },
-
+    signUp: {
+        ...FONTS.largeTitle,
+        color: COLORS.white,
+        lineHeight: 45,
+        textAlign: 'center',
+        height: '100%',
+        fontWeight: 'bold',
+      },
     registerBG: {
       flex: 1,
       paddingHorizontal: 20,
