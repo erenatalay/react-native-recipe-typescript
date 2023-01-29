@@ -3,6 +3,7 @@ const screens = {
     search: "Search",
     bookmark: "Bookmark",
     settings: "Settings",
+    add: "Add"
 }
 
 const bottom_tabs = [
@@ -24,6 +25,10 @@ const bottom_tabs = [
         label: screens.settings,
     },
 
+    {
+        id: 4,
+        label: screens.add,
+    },
 ]
 
 export default {
