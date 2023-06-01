@@ -125,7 +125,8 @@ const Login: React.FC<LoginFormProps> = props => {
               borderRadius: 20,
             }}
             colors={[COLORS.primary, COLORS.primary]}
-            onPress={() => handleSubmit()}
+            // onPress={() => handleSubmit()}
+            onPress={() => navigation.navigate('Home')}
           />
 
           <Text style={{textAlign: 'center', color: 'black', marginTop: 5}}>

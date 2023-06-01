@@ -38,6 +38,7 @@ const trash = require("../assets/icons/delete.png")
 const google = require("../assets/icons/google.png")
 const twitter = require("../assets/icons/twitter.png")
 const facebook = require("../assets/icons/facebook.png")
+const add = require("../assets/icons/plus.png")
 
 export default {
     bookmark,
@@ -80,4 +81,5 @@ export default {
     pepper,
     salt,
     sugar,
+    add
 }
